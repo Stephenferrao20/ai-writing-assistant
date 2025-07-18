@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Editor } from '@tiptap/react';
 import {
-  FileText, User, Bell, Settings, Menu, X, Zap, Globe,
+  FileText, User, Bell, Settings, Menu, X,
   Sparkles
 } from 'lucide-react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
@@ -165,6 +165,7 @@ const TextEditor = () => {
 
   const handleEditorContentChange = (content: string) => {
     setDocumentBody(content);
+    console.log(documentBody);
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = content;
     const text = tempDiv.textContent?.replace(/\u200B/g, '').trim() || '';
@@ -214,6 +215,7 @@ const TextEditor = () => {
           { id: contentId, title, body },
           {
             onSuccess: (data) => {
+              console.log(data)
               toast.success('Content updated!');
             },
             onError: (error) => {

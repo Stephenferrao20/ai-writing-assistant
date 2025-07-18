@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Lock, Eye, EyeOff, Check } from 'lucide-react';
+import { Lock, Eye, EyeOff} from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -227,7 +227,6 @@ const LoginPage = ({ initialType = 'sign-up' }) => {
   
   const isSignUp = currentType === 'sign-up';
 
-  const queryClient = useQueryClient()
 
   
   

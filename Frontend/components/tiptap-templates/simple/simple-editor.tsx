@@ -67,8 +67,6 @@ import { useWindowSize } from "@/hooks/use-window-size"
 import { useCursorVisibility } from "@/hooks/use-cursor-visibility"
 import { useRouter } from "next/navigation";
 
-// --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
@@ -204,13 +202,12 @@ const MobileToolbarContent = ({
 
 export function SimpleEditor({
   onContentChange,
-  onTitleChange,
   onEditorReady,
   onSave,
 }: {
   onContentChange?: (content: string) => void;
   onTitleChange?: (title: string) => void;
-  onEditorReady?: (editor: any) => void;
+  onEditorReady?: (editor) => void;
   onSave?: () => void;
 } = {}) {
   const isMobile = useMobile()

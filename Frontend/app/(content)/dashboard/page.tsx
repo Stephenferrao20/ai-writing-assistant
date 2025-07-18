@@ -189,9 +189,7 @@ const Dashboard = () => {
     }
   }, [content]);
 
-  const handleCreateDocument = () => {
-    console.log("Creating new document...");
-  };
+  
 
   const handleDeleteDocument = async (documentId: number) => {
     if (!window.confirm("Are you sure you want to delete this document?")) return;
@@ -199,7 +197,7 @@ const Dashboard = () => {
       await deleteContent(documentId);
       setDocuments(prev => prev.filter(doc => doc.id !== documentId));
       toast.success('Document deleted!');
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Error deleting document: ' + (error?.message || error));
     }
   };
