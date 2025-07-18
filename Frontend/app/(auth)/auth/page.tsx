@@ -68,7 +68,20 @@ const Input = ({
 };
 
 // Button Component
-const Button = ({ children, onClick, type = 'button', variant = 'primary', className = '' }) => {
+const Button = ({
+  children,
+  onClick,
+  type = 'button',
+  variant = 'primary',
+  className = ''
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'link';
+  className?: string;
+}) => {
+
   const baseClasses = "w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-200";
   const variants = {
     primary: "bg-green-600 text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2",
