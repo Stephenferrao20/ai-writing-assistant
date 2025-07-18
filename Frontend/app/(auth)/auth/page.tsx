@@ -209,9 +209,12 @@ const LoginForm = ({
           </div>
         )}
         
-        <Button onClick={handleSubmit} className="mb-6">
-          {isSignUp ? 'Sign up' : 'Log in'}
-        </Button>
+        <form onSubmit={handleSubmit}>
+  <Button type="submit" className="mb-6">
+    {isSignUp ? 'Sign up' : 'Log in'}
+  </Button>
+</form>
+
         
         <div className="text-center">
           <span className="text-gray-600">
