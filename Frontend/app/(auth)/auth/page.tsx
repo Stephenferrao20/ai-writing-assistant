@@ -101,7 +101,14 @@ const Button = ({
 
 
 // Login Form Component
-const LoginForm = ({ type = 'login', onToggleType }) => {
+const LoginForm = ({
+  type = 'login',
+  onToggleType
+}: {
+  type?: 'login' | 'sign-up';
+  onToggleType: () => void;
+}) => {
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
