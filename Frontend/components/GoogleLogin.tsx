@@ -1,5 +1,11 @@
 'use client'
 
+declare global {
+  interface Window {
+    google: unknown;
+  }
+}
+
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { toast } from 'sonner';
@@ -17,12 +23,19 @@ export default function GoogleLogin() {
     // Initialize Google Sign-In
     script.onload = () => {
       if (window.google) {
-        window.google.accounts.id.initialize({
+        const google = window.google as {
+          accounts: {
+            id: {
+              initialize: (...args: unknown[]) => void;
+              renderButton: (...args: unknown[]) => void;
+            };
+          };
+        };
+        google.accounts.id.initialize({
           client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
           callback: handleCredentialResponse
-        })
-
-        window.google.accounts.id.renderButton(
+        });
+        google.accounts.id.renderButton(
           document.getElementById('google-signin')!,
           {
             theme: 'outline',
@@ -30,12 +43,12 @@ export default function GoogleLogin() {
             text: 'signin_with',
             shape: 'rectangular'
           }
-        )
+        );
       }
     }
   }, [])
 
-  const handleCredentialResponse = async (response: google.accounts.id.CredentialResponse) => {
+  const handleCredentialResponse = async (response: { credential: string }) => {
     const id_token = response.credential
     
 
