@@ -207,7 +207,7 @@ export function SimpleEditor({
 }: {
   onContentChange?: (content: string) => void;
   onTitleChange?: (title: string) => void;
-  onEditorReady?: (editor) => void;
+  onEditorReady?: (editor: import("@tiptap/react").Editor) => void;
   onSave?: () => void;
 } = {}) {
   const isMobile = useMobile()

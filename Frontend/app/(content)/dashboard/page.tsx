@@ -80,7 +80,7 @@ const DocumentCard = ({ document, onEdit, onDelete }: DocumentCardProps) => {
         </div>
         <div className="flex items-center gap-1 md:gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
           <button
-            onClick={() => onEdit(document)}
+            onClick={() => onEdit()}
             className="p-1.5 md:p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-transparent hover:border-blue-500/30"
           >
             <Edit2 size={14} />
@@ -101,7 +101,14 @@ const DocumentCard = ({ document, onEdit, onDelete }: DocumentCardProps) => {
 };
 
 // Header Component
-const Header = ({ user, handleLogout }) => {
+
+  interface HeaderProps {
+    user: { name: string };
+    handleLogout: () => void;
+  }
+  
+  const Header = ({ user, handleLogout }: HeaderProps) => {
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -179,7 +186,17 @@ const Header = ({ user, handleLogout }) => {
 // Main Dashboard Component
 const Dashboard = () => {
   const { data: user } = useCurrentUser();
-  const [documents, setDocuments] = useState([]);
+
+// After
+interface Document {
+  id: number;
+  title: string;
+  body: string;
+  created_at: string;
+}
+
+const [documents, setDocuments] = useState<Document[]>([]);
+
   const {data: content } = useGetAllContent();
   
   // setDocuments(content);
@@ -198,7 +215,11 @@ const Dashboard = () => {
       setDocuments(prev => prev.filter(doc => doc.id !== documentId));
       toast.success('Document deleted!');
     } catch (error) {
-      toast.error('Error deleting document: ' + (error?.message || error));
+      if (error instanceof Error) {
+        toast.error('Error deleting document: ' + error.message);
+      } else {
+        toast.error('Error deleting document: ' + String(error));
+      }
     }
   };
 

@@ -62,7 +62,7 @@ export default function GoogleLogin() {
       
     } catch (error) {
       console.error('Google login failed:', error)
-      toast.error('Google login failed: ' + (error?.message || error));
+      toast.error('Google login failed: ' + (error instanceof Error ? error.message : String(error)));
     }
   }
 

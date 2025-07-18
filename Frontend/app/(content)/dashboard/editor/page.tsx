@@ -179,10 +179,11 @@ const TextEditor = () => {
     setShowTopicModal(false);
     if (editor) {
       const html = marked.parse(generatedText);
-      editor.commands.setContent(html, 'html');
+      editor.commands.setContent(html); 
     }
     setDocumentTitle(generatedTitle);
   };
+  
 
   // Save handler using editor.getHTML()
   const handleSave = () => {
