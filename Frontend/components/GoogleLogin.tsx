@@ -40,7 +40,7 @@ export default function GoogleLogin() {
     
 
     try {
-      const res = await fetch('http://localhost:8000/google_auth', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/google_auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
