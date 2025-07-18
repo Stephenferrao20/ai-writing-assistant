@@ -218,15 +218,15 @@ const LoginForm = ({ type = 'login', onToggleType }) => {
 };
 
 // Main Login Page Component
-const LoginPage = ({ initialType = 'sign-up' }) => {
-  const [currentType, setCurrentType] = useState(initialType);
+const LoginPage = () => {
+  const [currentType, setCurrentType] = useState<'sign-up' | 'login'>('sign-up');
+
   
   const handleToggleType = () => {
     setCurrentType(currentType === 'sign-up' ? 'login' : 'sign-up');
   };
-  
-  const isSignUp = currentType === 'sign-up';
 
+  const isSignUp = currentType === 'sign-up';
 
   
   
