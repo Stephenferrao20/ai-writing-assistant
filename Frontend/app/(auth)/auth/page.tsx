@@ -151,7 +151,7 @@ const LoginForm = ({
   
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (type === 'sign-up') {
       // TODO: implement sign-up logic or call userSignup
