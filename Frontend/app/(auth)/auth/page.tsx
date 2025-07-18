@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Lock, Eye, EyeOff} from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { userLogin } from '@/lib/api_handler';
 import { useRouter } from 'next/navigation';
 import GoogleLogin from '@/components/GoogleLogin';
