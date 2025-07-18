@@ -117,7 +117,8 @@ const LoginForm = ({
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const handleInputChange = (field) => (e) => {
+  const handleInputChange = (field: keyof typeof formData) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {  
     setFormData(prev => ({
       ...prev,
       [field]: e.target.value
