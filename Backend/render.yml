@@ -3,5 +3,5 @@ services:
     name: ai-writing-backend
     env: python
     plan: free
-    buildCommand: "uv pip install -e ."
-    startCommand: "uv main:app --host 0.0.0.0 --port 10000"
+    buildCommand: "uv pip install -e . && pip install uvicorn"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
