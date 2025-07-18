@@ -13,7 +13,6 @@ A modern, full-stack AI-powered writing platform with user authentication, conte
 - **Responsive UI** (Tailwind CSS, mobile-friendly)
 - **Protected Routes** (Frontend and backend)
 - **SEO-Ready** (Meta tags, favicon, semantic HTML)
-- **Dark Mode** (Optional, via Tailwind and custom hooks)
 
 ---
 
@@ -38,7 +37,7 @@ A modern, full-stack AI-powered writing platform with user authentication, conte
 - **JWT & Google OAuth**
 - **Rate Limiting** (core/limiter.py)
 - **Gemini Writer** (AI content generation)
-- **SQLite** (default, can be swapped)
+- **PostgreSQL** (default)
 
 ---
 
@@ -92,11 +91,12 @@ AI-Writing-Assistant/
 cd Backend
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
-pip install -r requirements.txt  # or use pyproject.toml/poetry
+pip install poetry
+poetry install
 uvicorn main:app --reload
 ```
 
-- Configure your `.env` for DB and Google credentials as needed.
+- Configure your `.env` for PostgreSQL and Google credentials as needed.
 
 ### 2. **Frontend Setup**
 
