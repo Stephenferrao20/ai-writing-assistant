@@ -46,7 +46,7 @@ def register_user(user: UserCreate, session: Session = Depends(get_session)):
             },
             status_code=200
         )
-        response.set_cookie(key="token" , value=token , httponly=True , secure=IS_PROD,samesite="None" if IS_PROD else "Lax" , max_age=3600)
+        response.set_cookie(key="token" , value=token , httponly=True , secure=False,samesite="None" if IS_PROD else "Lax" , max_age=3600)
         return response
 
     except Exception as e:
@@ -73,7 +73,7 @@ def login_user(user: UserLogin, session: Session = Depends(get_session) ):
             },
             status_code=200
         )
-        response.set_cookie(key="token" , value=token , httponly=True , secure=IS_PROD,samesite="None" if IS_PROD else "Lax" , max_age=3600)
+        response.set_cookie(key="token" , value=token , httponly=True , secure=False,samesite="None" if IS_PROD else "Lax" , max_age=3600)
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -124,7 +124,7 @@ def google_login(payload: TokenPayload, session: Session = Depends(get_session))
             )
 
         # 🍪 Set the token as a secure cookie
-        response.set_cookie(key="token" , value=token , httponly=True , secure=IS_PROD,samesite="None" if IS_PROD else "Lax" , max_age=3600)
+        response.set_cookie(key="token" , value=token , httponly=True , secure=False,samesite="None" if IS_PROD else "Lax" , max_age=3600)
         return response
 
     except Exception as e:
