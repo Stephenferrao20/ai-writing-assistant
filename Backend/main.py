@@ -22,7 +22,7 @@ app.state.limiter = limiter
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://your-frontend.com",
+    "https://ai-writing-assistant-cyan.vercel.app",
 ]
 
 app.add_middleware(
