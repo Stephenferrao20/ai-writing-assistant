@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse 
+from fastapi import Request
 from sqlmodel import Session, select
 from google.oauth2 import id_token
 from passlib.context import CryptContext
@@ -131,13 +132,15 @@ def google_login(payload: TokenPayload, session: Session = Depends(get_session))
 
 
 @user_router.get("/me")
-def read_current_user(current_user: User = Depends(get_current_user)):
+def read_current_user(request: Request, current_user: User = Depends(get_current_user)):
+    print("Cookies received:", request.cookies)
     return {
         "id": current_user.id,
         "name": current_user.name,
         "email": current_user.email,
         "created_at": current_user.created_at
     }
+
 
 
 @user_router.get("/logout")
