@@ -204,11 +204,13 @@ export function SimpleEditor({
   onContentChange,
   onEditorReady,
   onSave,
+  initialContent = "",
 }: {
   onContentChange?: (content: string) => void;
   onTitleChange?: (title: string) => void;
   onEditorReady?: (editor: import("@tiptap/react").Editor) => void;
   onSave?: () => void;
+  initialContent?: string;
 } = {}) {
   const isMobile = useMobile()
   const windowSize = useWindowSize()
@@ -251,7 +253,7 @@ export function SimpleEditor({
       TrailingNode,
       Link.configure({ openOnClick: false }),
     ],
-    content: content,
+    content: initialContent,
   })
 
   React.useEffect(() => {
