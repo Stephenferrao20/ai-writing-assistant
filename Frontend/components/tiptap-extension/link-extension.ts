@@ -15,46 +15,41 @@ export const Link = TiptapLink.extend({
   },
 
   addProseMirrorPlugins() {
-    const { editor } = this
-
     return [
-      ...(this.parent?.() || []),
       new Plugin({
         props: {
-          handleKeyDown: (_: EditorView, event: KeyboardEvent) => {
-            const { selection } = editor.state
+          handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
+            const { state } = view
+            const { selection } = state
 
-            if (event.key === "Escape" && selection.empty !== true) {
-              editor.commands.focus(selection.to, { scrollIntoView: false })
+            if (event.key === "Escape" && !selection.empty) {
+              view.focus()
+              // Optionally, dispatch a transaction if you want to change selection
             }
 
             return false
           },
-          handleClick(view, pos) {
+
+          handleClick(view: EditorView, pos: number) {
             const { schema, doc, tr } = view.state
-            let range: ReturnType<typeof getMarkRange> | undefined
+            const linkMark = schema.marks.link
+            if (!linkMark) return false
 
-            if (schema.marks.link) {
-              range = getMarkRange(doc.resolve(pos), schema.marks.link)
-            }
+            const resolvedPos = doc.resolve(pos)
+            const range = getMarkRange(resolvedPos, linkMark)
 
-            if (!range) {
-              return
-            }
+            if (!range) return false
 
             const { from, to } = range
-            const start = Math.min(from, to)
-            const end = Math.max(from, to)
 
-            if (pos < start || pos > end) {
-              return
-            }
+            if (pos < from || pos > to) return false
 
-            const $start = doc.resolve(start)
-            const $end = doc.resolve(end)
-            const transaction = tr.setSelection(new TextSelection($start, $end))
+            const $from = doc.resolve(from)
+            const $to = doc.resolve(to)
 
+            const transaction = tr.setSelection(new TextSelection($from, $to))
             view.dispatch(transaction)
+            return true
           },
         },
       }),

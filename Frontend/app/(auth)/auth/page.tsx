@@ -73,13 +73,15 @@ const Button = ({
   onClick,
   type = 'button',
   variant = 'primary',
-  className = ''
+  className = '',
+  disabled = false
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   type?: 'button' | 'submit';
   variant?: 'primary' | 'link';
   className?: string;
+  disabled?: boolean;
 }) => {
 
   const baseClasses = "w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-200";
@@ -92,7 +94,8 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`${baseClasses} ${variants[variant]} ${className}`}
+      className={`${baseClasses} ${variants[variant]} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      disabled={disabled}
     >
       {children}
     </button>
@@ -125,7 +128,7 @@ const LoginForm = ({
     }));
   };
 
-  const { mutate: loginMutation } = useMutation({
+  const { mutate: loginMutation, isPending: isLoginPending } = useMutation({
     mutationFn: userLogin,
     onSuccess(data) {
       console.log(data.message);
@@ -137,7 +140,7 @@ const LoginForm = ({
     }
   });
 
-  const { mutate:signupMutation } = useMutation({
+  const { mutate: signupMutation, isPending: isSignupPending } = useMutation({
     mutationFn: userLogin,
     onSuccess(data) {
       console.log(data);
@@ -147,8 +150,6 @@ const LoginForm = ({
     onError(error) {
       toast.error("Sign Up failed!" + error);
     },
-   
-  
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -210,10 +211,14 @@ const LoginForm = ({
         )}
         
         <form onSubmit={handleSubmit}>
-  <Button type="submit" className="mb-6">
-    {isSignUp ? 'Sign up' : 'Log in'}
-  </Button>
-</form>
+          <Button type="submit" className="mb-6" disabled={isLoginPending || isSignupPending}>
+            {(isLoginPending || isSignupPending) ? (
+              <span className="flex items-center justify-center"><svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>Loading...</span>
+            ) : (
+              isSignUp ? 'Sign up' : 'Log in'
+            )}
+          </Button>
+        </form>
 
         
         <div className="text-center">
