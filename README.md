@@ -4,6 +4,8 @@ A modern, full-stack AI-powered writing platform with user authentication, conte
 
 ---
 
+[**Live Demo**](https://ai-writing-assistant-cyan.vercel.app/)
+
 ## Features
 
 - **Google & JWT Authentication** (FastAPI backend, Next.js frontend)
